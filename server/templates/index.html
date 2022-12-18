@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block content %}
+
+    <form method="POST" action="{{ url_for('views.create_todo') }}" class="d-flex flex-column align-items-center mt-5">
+
+        <div class="form-group d-flex col-12 col-md-6">
+
+            <input type="text" class="form-control me-2" id="new-todo" name="new-todo" placeholder="Enter new to-do">
+
+            <button type="submit" class="btn btn-outline-primary btn-lg">Add</button>
+
+        </div>
+
+    </form>
+
+    {% if todos %}
+
+        <ul class="list-group row align-items-center mt-5">
+
+            {% for todo in todos %}
+
+                <li class="list-group-item d-flex justify-content-between align-items-center col-12 col-md-6">
+
+                    {{ todo.text }}
+
+                    <a href="{{ url_for('views.delete_todo', todo_id=todo.id) }}">
+
+                        <i class="fa-solid fa-trash"></i>
+                        
+                    </a>
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    
+    {% else %}
+
+        <div class="d-flex justify-content-center my-5">
+
+            <span class="alert alert-primary" role="alert">
+
+                No todos were found.
+
+            </span>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}
